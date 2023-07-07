@@ -15,6 +15,7 @@ import (
 func HandleApiMonitoring(botInstance *tgbotapi.BotAPI) {
 	var buf bytes.Buffer
 	apiUrl := os.Getenv("MAIN_API")
+	// TODO: this block can be implement dry concept
 	templMsgSlow := "API {{.ApiUrl}} is slow (> 3 sec), with result {{.Elapsed}} secs and status code {{.StatusCode}}"
 	textMsgSlow, err := template.New("ApiSlow").Parse(templMsgSlow)
 	helpers.PanicIfError(err)
@@ -22,6 +23,7 @@ func HandleApiMonitoring(botInstance *tgbotapi.BotAPI) {
 	templMsgErr := "API {{.ApiUrl}} has status code {{.StatusCode}}"
 	textMsgErr, err := template.New("ApiError").Parse(templMsgErr)
 	helpers.PanicIfError(err)
+	// END TODO
 
 	startTime := time.Now()
 	_, statusCode, _ := services.MakeAPIRequest(apiUrl)
