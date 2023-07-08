@@ -3,27 +3,21 @@ package controllers
 import (
 	"bytes"
 	"os"
-	"text/template"
 	"time"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/notneet/NNbot/helpers"
+	"github.com/notneet/NNbot/helpers/stringlib"
 	"github.com/notneet/NNbot/interfaces"
 	"github.com/notneet/NNbot/services"
 )
 
 func HandleApiMonitoring(botInstance *tgbotapi.BotAPI) {
 	var buf bytes.Buffer
+	var err error
 	apiUrl := os.Getenv("MAIN_API")
-	// TODO: this block can be implement dry concept
-	templMsgSlow := "API {{.ApiUrl}} is slow (> 3 sec), with result {{.Elapsed}} secs and status code {{.StatusCode}}"
-	textMsgSlow, err := template.New("ApiSlow").Parse(templMsgSlow)
-	helpers.PanicIfError(err)
-
-	templMsgErr := "API {{.ApiUrl}} has status code {{.StatusCode}}"
-	textMsgErr, err := template.New("ApiError").Parse(templMsgErr)
-	helpers.PanicIfError(err)
-	// END TODO
+	textMsgSlow := stringlib.CreateStringTemplate("ApiSlow", "API {{.ApiUrl}} is slow (> 3 sec), with result {{.Elapsed}} secs and status code {{.StatusCode}}")
+	textMsgErr := stringlib.CreateStringTemplate("ApiError", "API {{.ApiUrl}} has status code {{.StatusCode}}")
 
 	startTime := time.Now()
 	_, statusCode, _ := services.MakeAPIRequest(apiUrl)
@@ -37,10 +31,10 @@ func HandleApiMonitoring(botInstance *tgbotapi.BotAPI) {
 	}
 
 	if elapsed > isThreeSecond {
-		err := textMsgSlow.Execute(&buf, dataMsg)
+		err = textMsgSlow.Execute(&buf, dataMsg)
 		helpers.PanicIfError(err)
 	} else if dataMsg.StatusCode != 200 {
-		err := textMsgErr.Execute(&buf, dataMsg)
+		err = textMsgErr.Execute(&buf, dataMsg)
 		helpers.PanicIfError(err)
 	}
 
