@@ -16,7 +16,8 @@ func HandleApiMonitoring(botInstance *tgbotapi.BotAPI) {
 	var buf bytes.Buffer
 	var err error
 	apiUrl := os.Getenv("MAIN_API")
-	textMsgSlow := stringlib.CreateStringTemplate("ApiSlow", "API {{.ApiUrl}} is slow (> 3 sec), with result {{.Elapsed}} secs and status code {{.StatusCode}}")
+	textMsgSlow := stringlib.CreateStringTemplate("ApiSlow",
+		"API {{.ApiUrl}} is slow (> 3 sec), with result {{.Elapsed}} secs and status code {{.StatusCode}}")
 	textMsgErr := stringlib.CreateStringTemplate("ApiError", "API {{.ApiUrl}} has status code {{.StatusCode}}")
 
 	startTime := time.Now()
