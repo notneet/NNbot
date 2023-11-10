@@ -5,7 +5,18 @@ services:
     container_name: nnbot_main
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: "config/Dockerfile.nnbot"
+    env_file:
+      - .env
+    environment:
+      - TZ=Asia/Jakarta
+
+  nnapi:
+    image: nnapi:latest
+    container_name: nnapi
+    build:
+      context: .
+      dockerfile: "./config/Dockerfile.nnapi"
     env_file:
       - .env
     environment:
