@@ -1,4 +1,4 @@
-package main
+package runner
 
 import (
 	"log"
@@ -11,7 +11,7 @@ import (
 	"github.com/robfig/cron"
 )
 
-func main() {
+func TgBot() {
 	errEnv := godotenv.Load()
 	if errEnv != nil {
 		panic(errEnv)
