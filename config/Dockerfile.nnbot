@@ -1,7 +1,0 @@
-FROM nnbot:latest
-
-# Build the application
-RUN go build -o ./dist/handler
-
-# Run the application
-CMD ["./dist/handler"]
