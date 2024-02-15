@@ -14,7 +14,7 @@ func main() {
 
 	// Example: Translate from English to Bahasa Indonesia
 	textEn := "Good Morning!"
-	result, err := TL(textEn, gtranslate.TranslationParams{From: "en", To: "ja"})
+	result, err := TL(textEn, gtranslate.TranslationParams{From: "en", To: "id"})
 	helper.PanicIfError(err)
 
 	fmt.Printf("result: %v\n", result)
