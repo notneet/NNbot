@@ -1,7 +1,8 @@
-package helper
+package telegram
 
 import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+	"github.com/notneet/NNbot/pkg/common"
 )
 
 func TgSendMessage(bot *tgbotapi.BotAPI, chatID int64, text string) {
@@ -9,5 +10,5 @@ func TgSendMessage(bot *tgbotapi.BotAPI, chatID int64, text string) {
 	// msg.ReplyToMessageID = int(chatID)
 
 	_, err := bot.Send(msg)
-	PanicIfError(err)
+	common.PanicIfError(err)
 }

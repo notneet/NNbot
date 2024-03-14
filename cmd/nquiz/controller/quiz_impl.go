@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
-	"github.com/notneet/NNbot/helper"
+	"github.com/notneet/NNbot/pkg/telegram"
 )
 
 type QuizControllerImpl struct {
@@ -34,7 +34,7 @@ func (q QuizControllerImpl) Monitor() {
 				q.HandleStartComannd(update)
 				continue
 			default:
-				helper.TgSendMessage(q.BotInstance, update.Message.Chat.ID, "What do you mean?")
+				telegram.TgSendMessage(q.BotInstance, update.Message.Chat.ID, "What do you mean?")
 			}
 		}
 
@@ -48,5 +48,5 @@ func (q QuizControllerImpl) TriggerQuiz(uChan tgbotapi.Update) {
 }
 
 func (q QuizControllerImpl) HandleStartComannd(uChan tgbotapi.Update) {
-	helper.TgSendMessage(q.BotInstance, uChan.FromChat().ChatConfig().ChatID, "??")
+	telegram.TgSendMessage(q.BotInstance, uChan.FromChat().ChatConfig().ChatID, "??")
 }
