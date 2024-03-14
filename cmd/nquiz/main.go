@@ -6,8 +6,8 @@ import (
 	"strconv"
 
 	"github.com/joho/godotenv"
+	"github.com/notneet/NNbot/cmd/nquiz/controller"
 	"github.com/notneet/NNbot/helper"
-	"github.com/notneet/NNbot/pkg/nquiz/controller"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
